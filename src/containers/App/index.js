@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NotFoundPage from "../NotFoundPage/index";
 import LoggedUserLayout from "../LoggedUserLayout/index";
+import SignIn from "../SignIn";
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
 	Layout === undefined ?
@@ -19,6 +20,7 @@ export default function App() {
     <div>
       <BrowserRouter>
         <Switch>
+					<AppRoute exact path="/login" component={SignIn} />
           <AppRoute layout={LoggedUserLayout}  component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
