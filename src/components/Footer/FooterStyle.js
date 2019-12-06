@@ -1,6 +1,9 @@
+import { makeStyles } from '@material-ui/core/styles';
+
+
 const drawerWidth = 240;
 
-const appBarStyles = theme => ({
+const useStyles = makeStyles(theme => ({
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
@@ -27,7 +30,15 @@ const appBarStyles = theme => ({
       paddingTop: theme.spacing(6),
       paddingBottom: theme.spacing(6),
     },
-  },
-});
+	},
+	customLi: {
+		listStyle: 'none',
+	},
 
-  export default appBarStyles;
+	customUl: {
+		margin: 0,
+		padding: 0,
+	},
+}));
+
+  export default useStyles;
