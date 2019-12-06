@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-
+import { API_URL } from "../constants";
 /**
  * Parses the JSON returned by a network request
  *
@@ -39,8 +39,9 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
-  return fetch(url, options)
+export default function request(options, url, useDefault = true) {
+	let newURL = useDefault ?  API_URL + url : url
+  return fetch(newURL, options)
     .then(checkStatus)
     .then(parseJSON);
 }
