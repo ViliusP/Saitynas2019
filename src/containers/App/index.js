@@ -3,20 +3,17 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import NotFoundPage from "../NotFoundPage/index";
 import LoggedUserLayout from "../LoggedUserLayout/index";
 import SignIn from "../SignIn";
-import Hompage from "../Homepage";
+import Homepage from "../Homepage";
 
 import JwtDecode from 'jwt-decode';
 
 
 function isJwtValid() {
 	let token = localStorage.getItem("token");
-
-	console.log("Token: ");
-	console.log(token);
-
 	if(token !== null) { 
 		var decoded = JwtDecode(token);
-		console.log(decoded);
+		localStorage.setItem('first_name', token.first_name);
+		localStorage.setItem('last_name', token.last_name);
 		return true;
 	}
 	return false;
@@ -26,7 +23,7 @@ function isJwtValid() {
 export default function App() {
 
 
-const AppRoute = ({ islogged: IsLogged, component: Component, layout: Layout, ...rest }) => (
+const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
 	Layout === undefined
 		? //eslint-disable-next-line
 			(Layout = props => <React.Fragment>{props.children}</React.Fragment>)
@@ -50,11 +47,11 @@ const AppRoute = ({ islogged: IsLogged, component: Component, layout: Layout, ..
           <Route exact path="/login" component={SignIn} />
            <AppRoute
             exact
-            path="/home"
+            path="/"
             layout={LoggedUserLayout}
-						component={Hompage}
+						component={Homepage}
           />
-          <AppRoute layout={LoggedUserLayout} component={NotFoundPage} />}
+          <AppRoute layout={LoggedUserLayout} component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
     </div>
