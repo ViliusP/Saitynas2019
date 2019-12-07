@@ -6,6 +6,7 @@ import SignIn from "../SignIn";
 import Homepage from "../Homepage";
 
 import JwtDecode from 'jwt-decode';
+import SearchTrips from "../SearchTrips";
 
 
 function isJwtValid() {
@@ -48,7 +49,13 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
           <Route exact path="/login" component={SignIn} />
            <AppRoute
             exact
-            path="/"
+            path="/trips"
+            layout={LoggedUserLayout}
+						component={SearchTrips}
+          />
+					<AppRoute
+            exact
+            path="/trips"
             layout={LoggedUserLayout}
 						component={Homepage}
           />

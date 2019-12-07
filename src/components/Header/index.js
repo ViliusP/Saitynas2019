@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 //Material UI things
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-
+import { Link as RouterLink} from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Menu from "@material-ui/core/Menu";
@@ -17,7 +17,6 @@ import styles from "./HeaderStyle";
 
 function StaffHeader(props) {
 	const { classes } = props;
-	const { logoutFunc } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 	const history = useHistory();
@@ -27,7 +26,7 @@ function StaffHeader(props) {
 		history.push("/login");
 	};
 
-
+	const userID = localStorage.getItem("id");
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -49,32 +48,38 @@ function StaffHeader(props) {
           noWrap
           className={classes.toolbarTitle}
         >
-          Company name
+					VROOM
         </Typography>
         <nav>
           <Link
             variant="button"
             color="textPrimary"
-            href="#"
-            className={classes.link}
+            // href="/trips"
+						className={classes.link}
+						to={"/trips"}
+						component={RouterLink} 
           >
-            Features
+            Search trips
           </Link>
           <Link
             variant="button"
             color="textPrimary"
-            href="#"
+						// href={"/users/" + userID  + "/trips"}
+						component={RouterLink} 
+						to={"/users/" + userID  + "/trips"}
             className={classes.link}
           >
-            Enterprise
+            Your trips
           </Link>
           <Link
             variant="button"
             color="textPrimary"
-            href="#"
+						// href={"/users/" + userID  + "/requests"}
+						component={RouterLink} 
+						to={"/users/" + userID  + "/requests"}
             className={classes.link}
           >
-            Support
+            Your requests
           </Link>
         </nav>
 				<div>
