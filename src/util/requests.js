@@ -42,6 +42,6 @@ function checkStatus(response) {
 export default function request(options, url, useDefault = true) {
 	let newURL = useDefault ?  API_URL + url : url
   return fetch(newURL, options)
-    .then(checkStatus)
-    .then(parseJSON);
+    .then(checkStatus);
+    // .then(parseJSON);
 }
