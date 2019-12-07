@@ -35,16 +35,12 @@ class LoggedUserLayout extends React.PureComponent {
     const { classes } = this.props;
     return (
       <div>
-        <Header
-          open={this.state.open}
-          onMenuClick={() => this.handleDrawerState()}
-        />
+        <Header />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           {this.props.children}
         </main>
-
-				<Footer/>
+        <Footer />
       </div>
     );
   }

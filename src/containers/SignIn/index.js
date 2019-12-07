@@ -17,8 +17,6 @@ import Container from "@material-ui/core/Container";
 import useStyles from "./SignInStyle";
 import Copyright from "../../components/Copyright";
 import Snackbar from '@material-ui/core/Snackbar';
-import request from "../../util/requests";
-
 
 export default function SignIn() {
 	const classes = useStyles();

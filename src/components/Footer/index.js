@@ -41,7 +41,7 @@ export default function Footer() {
             <ul className={classes.customUl}>
               {footer.description.map(item => (
                 <li className={classes.customLi} key={item}>
-                  <Link href="#" variant="subtitle1" color="textSecondary">
+                  <Link href="/" variant="subtitle1" color="textSecondary">
                     {item}
                   </Link>
                 </li>

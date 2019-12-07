@@ -16,7 +16,7 @@ import styles from './HeaderStyle';
 function StaffHeader(props) {
   const { classes } = props;
   return (
-		<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+		<AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
 			<Toolbar className={classes.toolbar}>
 				<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
 					Company name
