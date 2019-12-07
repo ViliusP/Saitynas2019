@@ -10,7 +10,6 @@ import JwtDecode from 'jwt-decode';
 
 function isJwtValid() {
 	let token = localStorage.getItem("token");
-	console.log(token);
 	if(token !== null) { 
 		var decoded = JwtDecode(token);
 		localStorage.setItem('first_name', decoded.first_name);

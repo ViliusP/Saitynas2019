@@ -23,19 +23,12 @@ const styles = theme => ({
 });
 
 class LoggedUserLayout extends React.PureComponent {
-  state = {
-    open: false
-  };
-
-  handleDrawerState() {
-    this.setState(prevState => ({ open: !this.state.open }));
-  }
-
+	
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <Header />
+        <Header/>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           {this.props.children}
