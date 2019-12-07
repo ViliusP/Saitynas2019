@@ -14,6 +14,7 @@ function isJwtValid() {
 		var decoded = JwtDecode(token);
 		localStorage.setItem('first_name', decoded.first_name);
 		localStorage.setItem('last_name', decoded.last_name);
+		localStorage.setItem('id', decoded.id);
 		return true;
 	}
 	return false;
