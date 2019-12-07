@@ -10,10 +10,11 @@ import JwtDecode from 'jwt-decode';
 
 function isJwtValid() {
 	let token = localStorage.getItem("token");
+	console.log(token);
 	if(token !== null) { 
 		var decoded = JwtDecode(token);
-		localStorage.setItem('first_name', token.first_name);
-		localStorage.setItem('last_name', token.last_name);
+		localStorage.setItem('first_name', decoded.first_name);
+		localStorage.setItem('last_name', decoded.last_name);
 		return true;
 	}
 	return false;
