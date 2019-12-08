@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import SearchTripTemplate from "../../components/SearchTripTemplate";
 import { useHistory } from "react-router-dom";
-import { instanceOf } from "prop-types";
+import ModalContainer from '../../components/ModalContainer';
 
 export default function SearchTrips() {
   const [tripsData, setData] = useState([]);
   const [error, setError] = useState("");
 
+	const [DataAndOpen, setDataAndOpen] = useState({open: false, data: {}});
   const [test] = useState(0);
+
+	const closeModal = () => (
+		setDataAndOpen({open: false, data: {}})
+	)
 
   let history = useHistory();
   useEffect(() => {
@@ -27,6 +32,7 @@ export default function SearchTrips() {
       .then(
         result => {
           if (result.status === 401) {
+						console.log("Not authorized");
             localStorage.clear();
             history.push("/login");
           } else if (result.status > 402 && result.status < 500) {
@@ -41,6 +47,7 @@ export default function SearchTrips() {
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         error => {
+					setError(error);
           console.log("Error /SearchTrips: " + error);
           return;
         }
@@ -70,9 +77,12 @@ export default function SearchTrips() {
               userFirstName={trip.user.first_name}
               userLastName={trip.user.last_name}
               phoneNumber={trip.user.phone_number}
-              photoURL={trip.user.photo_URL}
+							photoURL={trip.user.photo_URL}
+							setDataAndOpen={setDataAndOpen}
             />
           ))}
+					<ModalContainer open={DataAndOpen.open} close={()=>closeModal()}></ModalContainer>
+
         </div>
       ) : (
         <div>{error}</div>

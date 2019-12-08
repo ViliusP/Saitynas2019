@@ -38,7 +38,8 @@ export default function SearchTripTemplate(props) {
     userFirstName,
     userLastName,
     phoneNumber,
-    photoURL
+		photoURL,
+		setDataAndOpen
 	} = props;
 	
 	return (
@@ -71,7 +72,7 @@ export default function SearchTripTemplate(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="Send request">
+        <IconButton aria-label="Send request" onClick={()=> setDataAndOpen({open: true, data: tripID})}>
           <DriveEta/>
         </IconButton>
       </CardActions>
