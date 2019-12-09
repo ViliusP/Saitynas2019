@@ -20,14 +20,13 @@ const  generateColor = () => (
 
 export default function SearchTripTemplate(props) {
 	const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
 	const [properties] = React.useState({ color: generateColor(), theme: useTheme()})
 
 	const classesUsingProps = useStylesWithProps(properties);
 
 
   const {
-    tripID,
+		tripID,
     tripFirstCity,
     tripLastCity,
     cost,
@@ -41,7 +40,6 @@ export default function SearchTripTemplate(props) {
 		photoURL,
 		setDataAndOpen
 	} = props;
-	
 	return (
     <Card className={classes.card}>
       <CardHeader
@@ -72,7 +70,7 @@ export default function SearchTripTemplate(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="Send request" onClick={()=> setDataAndOpen({open: true, data: tripID})}>
+        <IconButton aria-label="Send request" onClick={()=> setDataAndOpen({open: true, data: {tripID: tripID}})}>
           <DriveEta/>
         </IconButton>
       </CardActions>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchTripTemplate from "../../components/SearchTripTemplate";
 import { useHistory } from "react-router-dom";
 import ModalContainer from '../../components/ModalContainer';
-
+import PostRequestForm from '../PostRequestForm';
 export default function SearchTrips() {
   const [tripsData, setData] = useState([]);
   const [error, setError] = useState("");
@@ -66,7 +66,8 @@ export default function SearchTrips() {
         <div>
           {tripsData.map(trip => (
             <SearchTripTemplate
-              key={trip.tripID}
+							key={trip.tripID}
+							tripID = {trip.tripID}
               tripFirstCity={trip.departure_city.name}
               tripLastCity={trip.destination_city.name}
               cost={trip.cost}
@@ -81,7 +82,7 @@ export default function SearchTrips() {
 							setDataAndOpen={setDataAndOpen}
             />
           ))}
-					<ModalContainer open={DataAndOpen.open} close={()=>closeModal()}></ModalContainer>
+					<ModalContainer open={DataAndOpen.open} close={()=>closeModal()}><PostRequestForm data={DataAndOpen.data}/></ModalContainer>
 
         </div>
       ) : (
