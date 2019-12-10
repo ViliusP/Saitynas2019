@@ -94,7 +94,8 @@ export default function SearchTrips() {
 
 			<Snackbar
         open={requestResult != ""}
-				onClose={()=> setRequestResult("")}
+				onClose={()=> {setRequestResult(""); }}
+				onEnter={()=> fetchTrips()}
 				autoHideDuration={2000}
         TransitionComponent={Grow}
         ContentProps={{
