@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
 
 const filterByStatus = (requests, filters) => {
 	let newRequests = []
+	if(filters.length === 0) {
+		return requests;
+	}
 	if(filters.includes("pending")) {
 		newRequests = newRequests.concat(requests.filter(x=> x.status.name === "pending"))
 	}
