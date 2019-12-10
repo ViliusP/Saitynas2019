@@ -30,6 +30,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const filterByStatus = (requests, filters) => {
+	let newRequests = []
+	if(filters.includes("pending")) {
+		newRequests = newRequests.concat(requests.filter(x=> x.status.name === "pending"))
+	}
+	if(filters.includes("accepted")) {
+		newRequests = newRequests.concat(requests.filter(x=> x.status.name === "accepted"))
+	}
+	if(filters.includes("rejected")) {
+		newRequests = newRequests.concat(requests.filter(x=> x.status.name === "rejected"))
+	}
+	return newRequests;
+}
+
+
 export default function UserTrip(props) {
   const classes = useStyles();
 	const { handleChange, expanded, trip } = props;
@@ -74,7 +89,9 @@ export default function UserTrip(props) {
           <div>
             <Divider />
             <ExpansionPanelDetails>
-								{trip.requests.map(request => <RequestPanel request={request}/>)}
+							<Grid container>
+								{filterByStatus(trip.requests, requestFilters).map(request => <Grid xs={12} item><RequestPanel request={request}/></Grid>)}
+							</Grid>
             </ExpansionPanelDetails>
           </div>
         ) : null}
