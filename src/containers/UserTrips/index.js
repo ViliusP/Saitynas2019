@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import UserTrip from "../../components/UserTrip";
+import ToggleRequestStatus from "../../components/ToggleRequestStatus";
+
+import { Typography } from "@material-ui/core";
 
 export default function UserTrips() {
   const { id } = useParams();
@@ -64,6 +67,9 @@ export default function UserTrips() {
   };
   return (
     <div>
+			<Typography><h1>Manage your trips</h1></Typography>
+			<Typography><h3>Here you can see your all created trips and manage it</h3></Typography>
+			<ToggleRequestStatus/>
       {tripsData.map(trip => (
         <UserTrip key={trip.tripID} trip={trip} handleChange={(panel)=> handleChange(panel)} expanded={expanded}/>
       ))}
