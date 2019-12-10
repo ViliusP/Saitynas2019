@@ -54,7 +54,7 @@ export default function SearchTripTemplate(props) {
 
       <CardContent className={classes.cardContent}>
 				<Typography paragraph variant="body2" color="textSecondary" component="p">
-				 Departure date: {departureDate} - {tripLastCity}
+				 Departure date: {departureDate}
         </Typography>
         <Typography paragraph variant="body2" color="textSecondary" component="p">
 				 Route: {tripFirstCity} - {tripLastCity}

@@ -58,7 +58,7 @@ export default function SignIn() {
         // exceptions from actual bugs in components.
         error => {
           console.log(error);
-          setError(error);
+          setError(error.toString());
           setTimeout(() => {
             setLoading(false);
           }, 1000); //Fake delay
