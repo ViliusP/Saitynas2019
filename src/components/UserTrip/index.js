@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+
+import RequestPanel from "../../containers/RequestPanel";
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -29,7 +32,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function UserTrip(props) {
   const classes = useStyles();
-  const { handleChange, expanded, trip } = props;
+	const { handleChange, expanded, trip } = props;
+	const { requestFilters } = props;
   const panelName = "panel" + trip.tripID;
   return (
     <div className={classes.root}>
@@ -70,7 +74,7 @@ export default function UserTrip(props) {
           <div>
             <Divider />
             <ExpansionPanelDetails>
-								{trip.requests.map(request => <div>h</div>)}
+								{trip.requests.map(request => <RequestPanel request={request}/>)}
             </ExpansionPanelDetails>
           </div>
         ) : null}

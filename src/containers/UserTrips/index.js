@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import UserTrip from "../../components/UserTrip";
-import ToggleRequestStatus from "../../components/ToggleRequestStatus";
+import UserTripsHeading from "../../components/UserTripsHeading";
 
-import { Typography } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+
+
 
 export default function UserTrips() {
   const { id } = useParams();
@@ -13,6 +13,19 @@ export default function UserTrips() {
   const [tripsData, setData] = useState([]);
   const [error, setError] = useState("");
   const [expanded, setExpanded] = React.useState(false);
+	const [state, setState] = React.useState(false)
+	const [filters, setFilters] = React.useState(() => ['pending']);
+	
+	
+	const handleStatusChange = (event, newFilter) => {
+		console.log(newFilter);
+    setFilters(newFilter);
+	};
+
+	const handleStateChange = () => {
+		setState(!state)
+	}
+
 
   useEffect(() => {
     if (id !== localStorage.getItem("id")) {
@@ -65,32 +78,31 @@ export default function UserTrips() {
         }
         setData(res);
       });
-  };
+	};
+	
+
+	const proccesedTrips = () => {
+		const data = state
+			? tripsData
+			: tripsData.filter(
+					trip => new Date(trip.departure_date).getTime() > Date.now()
+				);
+		return data;
+	};
+	
+
+
   return (
     <div>
-      <Typography>
-        <h1>Manage your trips</h1>
-      </Typography>
-      <Typography>
-        <h3>Here you can see your all created trips and manage it</h3>
-      </Typography>
-      <Grid container alignItems="center" justify="flex-start" spacing = {10}>
-        <Grid item >
-          <Typography>
-            <h4>Request filters:</h4>
-          </Typography>
-        </Grid>
-        <Grid item>
-          <ToggleRequestStatus />
-        </Grid>
-      </Grid>
 
-      {tripsData.map(trip => (
+			<UserTripsHeading switchState={state} switchSetState={()=> handleStateChange()} handleStatusChange={handleStatusChange} filters={filters} />
+      {proccesedTrips().map(trip => (
         <UserTrip
           key={trip.tripID}
           trip={trip}
           handleChange={panel => handleChange(panel)}
-          expanded={expanded}
+					expanded={expanded}
+					requestFilters={filters}
         />
       ))}
     </div>
