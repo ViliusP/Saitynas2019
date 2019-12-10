@@ -3,15 +3,19 @@ import SearchTripTemplate from "../../components/SearchTripTemplate";
 import { useHistory } from "react-router-dom";
 import ModalContainer from "../../components/ModalContainer";
 import PostRequestForm from "../PostRequestForm";
+
+import Snackbar from '@material-ui/core/Snackbar';
+import Grow from '@material-ui/core/Grow';
+
 export default function SearchTrips() {
   const [tripsData, setData] = useState([]);
   const [error, setError] = useState("");
+	const [requestResult, setRequestResult] = useState("");
 
   const [DataAndOpen, setDataAndOpen] = useState({ open: false, data: {} });
   const [test] = useState(0);
 
   const closeModal = () => setDataAndOpen({ open: false, data: {} });
-
   let history = useHistory();
   useEffect(() => {
     fetchTrips();
@@ -45,7 +49,7 @@ export default function SearchTrips() {
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         error => {
-          setError(error);
+          setError(error.toString());
           console.log("Error /SearchTrips: " + error);
           return;
         }
@@ -81,12 +85,23 @@ export default function SearchTrips() {
             />
           ))}
           <ModalContainer open={DataAndOpen.open} close={() => closeModal()}>
-            <PostRequestForm close={()=>closeModal()} data={DataAndOpen.data} />
+            <PostRequestForm setRequestResult={(results)=>setRequestResult(results)} close={()=>closeModal()} data={DataAndOpen.data} />
           </ModalContainer>
         </div>
       ) : (
         <div>{error}</div>
       )}
+
+			<Snackbar
+        open={requestResult != ""}
+				onClose={()=> setRequestResult("")}
+				autoHideDuration={2000}
+        TransitionComponent={Grow}
+        ContentProps={{
+          "aria-describedby": "message-id"
+        }}
+        message={<span id="message-id">{requestResult}</span>}
+      />
     </div>
   );
 }
