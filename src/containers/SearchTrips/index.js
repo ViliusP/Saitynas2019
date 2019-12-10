@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import SearchTripTemplate from "../../components/SearchTripTemplate";
 import { useHistory } from "react-router-dom";
-import ModalContainer from '../../components/ModalContainer';
-import PostRequestForm from '../PostRequestForm';
+import ModalContainer from "../../components/ModalContainer";
+import PostRequestForm from "../PostRequestForm";
 export default function SearchTrips() {
   const [tripsData, setData] = useState([]);
   const [error, setError] = useState("");
 
-	const [DataAndOpen, setDataAndOpen] = useState({open: false, data: {}});
+  const [DataAndOpen, setDataAndOpen] = useState({ open: false, data: {} });
   const [test] = useState(0);
 
-	const closeModal = () => (
-		setDataAndOpen({open: false, data: {}})
-	)
+  const closeModal = () => setDataAndOpen({ open: false, data: {} });
 
   let history = useHistory();
   useEffect(() => {
@@ -32,7 +30,7 @@ export default function SearchTrips() {
       .then(
         result => {
           if (result.status === 401) {
-						console.log("Not authorized");
+            console.log("Not authorized");
             localStorage.clear();
             history.push("/login");
           } else if (result.status > 402 && result.status < 500) {
@@ -47,7 +45,7 @@ export default function SearchTrips() {
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         error => {
-					setError(error);
+          setError(error);
           console.log("Error /SearchTrips: " + error);
           return;
         }
@@ -66,8 +64,8 @@ export default function SearchTrips() {
         <div>
           {tripsData.map(trip => (
             <SearchTripTemplate
-							key={trip.tripID}
-							tripID = {trip.tripID}
+              key={trip.tripID}
+              tripID={trip.tripID}
               tripFirstCity={trip.departure_city.name}
               tripLastCity={trip.destination_city.name}
               cost={trip.cost}
@@ -78,12 +76,13 @@ export default function SearchTrips() {
               userFirstName={trip.user.first_name}
               userLastName={trip.user.last_name}
               phoneNumber={trip.user.phone_number}
-							photoURL={trip.user.photo_URL}
-							setDataAndOpen={setDataAndOpen}
+              photoURL={trip.user.photo_URL}
+              setDataAndOpen={setDataAndOpen}
             />
           ))}
-					<ModalContainer open={DataAndOpen.open} close={()=>closeModal()}><PostRequestForm data={DataAndOpen.data}/></ModalContainer>
-
+          <ModalContainer open={DataAndOpen.open} close={() => closeModal()}>
+            <PostRequestForm close={()=>closeModal()} data={DataAndOpen.data} />
+          </ModalContainer>
         </div>
       ) : (
         <div>{error}</div>
