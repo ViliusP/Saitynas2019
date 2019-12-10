@@ -69,11 +69,13 @@ export default function SearchTripTemplate(props) {
           {info}
         </Typography>
       </CardContent>
+			{new Date(departureDate).getTime() > Date.now() ?
       <CardActions disableSpacing>
         <IconButton aria-label="Send request" onClick={()=> setDataAndOpen({open: true, data: {tripID: tripID}})}>
           <DriveEta/>
         </IconButton>
       </CardActions>
+			: null }	
     </Card>
   );
 }
