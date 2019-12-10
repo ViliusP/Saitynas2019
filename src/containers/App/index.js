@@ -55,7 +55,7 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
           />
 					<AppRoute
             exact
-            path="/trips"
+            path="/"
             layout={LoggedUserLayout}
 						component={Homepage}
           />
