@@ -57,7 +57,7 @@ export default function UserTrip(props) {
   const classes = useStyles();
   const { handleChange, expanded, trip } = props;
   const { requestFilters } = props;
-  const { isExpired } = props;
+  const isExpired  = new Date(trip.departure_date).getTime() < Date.now()
   const panelName = "panel" + trip.tripID;
   return (
     <div className={classes.root}>
@@ -106,7 +106,7 @@ export default function UserTrip(props) {
                     key={request.requestID}
                     item
                   >
-                    <RequestPanel isExpired={isExpired} request={request} />
+                    <RequestPanel tripID={trip.tripID}isExpired={isExpired} request={request} />
                   </Grid>
                 ))}
               </Grid>
