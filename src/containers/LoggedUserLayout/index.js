@@ -23,12 +23,11 @@ const styles = theme => ({
 });
 
 class LoggedUserLayout extends React.PureComponent {
-	
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <Header/>
+        <Header />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           {this.props.children}

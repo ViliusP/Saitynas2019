@@ -4,31 +4,31 @@ import { useHistory } from "react-router-dom";
 import ModalContainer from "../../components/ModalContainer";
 import PostRequestForm from "../PostRequestForm";
 
-import ScheduleBo from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import ScheduleBo from "@material-ui/icons/Favorite";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
-import Snackbar from '@material-ui/core/Snackbar';
-import Grow from '@material-ui/core/Grow';
+import Snackbar from "@material-ui/core/Snackbar";
+import Grow from "@material-ui/core/Grow";
 
 export default function SearchTrips() {
   const [tripsData, setData] = useState([]);
   const [error, setError] = useState("");
-	const [requestResult, setRequestResult] = useState("");
-	const [showExpired, setShow] = useState(false);
+  const [requestResult, setRequestResult] = useState("");
+  const [showExpired, setShow] = useState(false);
   const [DataAndOpen, setDataAndOpen] = useState({ open: false, data: {} });
   const [test] = useState(0);
 
-
-	const proccesedTrips = () => { 
-		const data = showExpired ? 
-			tripsData : 
-			tripsData.filter(trip => new Date(trip.departure_date).getTime() > Date.now() )
-		return data;
-	}
-
+  const proccesedTrips = () => {
+    const data = showExpired
+      ? tripsData
+      : tripsData.filter(
+          trip => new Date(trip.departure_date).getTime() > Date.now()
+        );
+    return data;
+  };
 
   const closeModal = () => setDataAndOpen({ open: false, data: {} });
   let history = useHistory();
@@ -81,10 +81,16 @@ export default function SearchTrips() {
     <div>
       <FormControlLabel
         control={
-          <Checkbox checked={showExpired} onChange={() => setShow(!showExpired)} value="checkedA" color="primary" />
+          <Checkbox
+            checked={showExpired}
+            onChange={() => setShow(!showExpired)}
+            value="checkedA"
+            color="primary"
+          />
         }
         label="show expired"
       />
+      <div>Found {proccesedTrips().length} trips:</div>
       {error === "" ? (
         <div>
           {proccesedTrips().map(trip => (
@@ -106,18 +112,24 @@ export default function SearchTrips() {
             />
           ))}
           <ModalContainer open={DataAndOpen.open} close={() => closeModal()}>
-            <PostRequestForm setRequestResult={(results)=>setRequestResult(results)} close={()=>closeModal()} data={DataAndOpen.data} />
+            <PostRequestForm
+              setRequestResult={results => setRequestResult(results)}
+              close={() => closeModal()}
+              data={DataAndOpen.data}
+            />
           </ModalContainer>
         </div>
       ) : (
         <div>{error}</div>
       )}
 
-			<Snackbar
+      <Snackbar
         open={requestResult != ""}
-				onClose={()=> {setRequestResult(""); }}
-				onEnter={()=> fetchTrips()}
-				autoHideDuration={2000}
+        onClose={() => {
+          setRequestResult("");
+        }}
+        onEnter={() => fetchTrips()}
+        autoHideDuration={2000}
         TransitionComponent={Grow}
         ContentProps={{
           "aria-describedby": "message-id"
