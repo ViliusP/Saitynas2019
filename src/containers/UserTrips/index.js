@@ -5,6 +5,7 @@ import UserTrip from "../../components/UserTrip";
 import ToggleRequestStatus from "../../components/ToggleRequestStatus";
 
 import { Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 
 export default function UserTrips() {
   const { id } = useParams();
@@ -67,11 +68,30 @@ export default function UserTrips() {
   };
   return (
     <div>
-			<Typography><h1>Manage your trips</h1></Typography>
-			<Typography><h3>Here you can see your all created trips and manage it</h3></Typography>
-			<ToggleRequestStatus/>
+      <Typography>
+        <h1>Manage your trips</h1>
+      </Typography>
+      <Typography>
+        <h3>Here you can see your all created trips and manage it</h3>
+      </Typography>
+      <Grid container alignItems="center" justify="flex-start" spacing = {10}>
+        <Grid item >
+          <Typography>
+            <h4>Request filters:</h4>
+          </Typography>
+        </Grid>
+        <Grid item>
+          <ToggleRequestStatus />
+        </Grid>
+      </Grid>
+
       {tripsData.map(trip => (
-        <UserTrip key={trip.tripID} trip={trip} handleChange={(panel)=> handleChange(panel)} expanded={expanded}/>
+        <UserTrip
+          key={trip.tripID}
+          trip={trip}
+          handleChange={panel => handleChange(panel)}
+          expanded={expanded}
+        />
       ))}
     </div>
   );
