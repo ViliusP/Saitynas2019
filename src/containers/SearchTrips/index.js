@@ -4,6 +4,12 @@ import { useHistory } from "react-router-dom";
 import ModalContainer from "../../components/ModalContainer";
 import PostRequestForm from "../PostRequestForm";
 
+import ScheduleBo from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 import Snackbar from '@material-ui/core/Snackbar';
 import Grow from '@material-ui/core/Grow';
 
@@ -11,9 +17,18 @@ export default function SearchTrips() {
   const [tripsData, setData] = useState([]);
   const [error, setError] = useState("");
 	const [requestResult, setRequestResult] = useState("");
-
+	const [showExpired, setShow] = useState(false);
   const [DataAndOpen, setDataAndOpen] = useState({ open: false, data: {} });
   const [test] = useState(0);
+
+
+	const proccesedTrips = () => { 
+		const data = showExpired ? 
+			tripsData : 
+			tripsData.filter(trip => new Date(trip.departure_date).getTime() > Date.now() )
+		return data;
+	}
+
 
   const closeModal = () => setDataAndOpen({ open: false, data: {} });
   let history = useHistory();
@@ -64,9 +79,15 @@ export default function SearchTrips() {
   };
   return (
     <div>
+      <FormControlLabel
+        control={
+          <Checkbox checked={showExpired} onChange={() => setShow(!showExpired)} value="checkedA" color="primary" />
+        }
+        label="show expired"
+      />
       {error === "" ? (
         <div>
-          {tripsData.map(trip => (
+          {proccesedTrips().map(trip => (
             <SearchTripTemplate
               key={trip.tripID}
               tripID={trip.tripID}
