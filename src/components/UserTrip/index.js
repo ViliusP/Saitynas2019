@@ -31,27 +31,33 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const filterByStatus = (requests, filters) => {
-	let newRequests = []
-	if(filters.length === 0) {
-		return requests;
-	}
-	if(filters.includes("pending")) {
-		newRequests = newRequests.concat(requests.filter(x=> x.status.name === "pending"))
-	}
-	if(filters.includes("accepted")) {
-		newRequests = newRequests.concat(requests.filter(x=> x.status.name === "accepted"))
-	}
-	if(filters.includes("rejected")) {
-		newRequests = newRequests.concat(requests.filter(x=> x.status.name === "rejected"))
-	}
-	return newRequests;
-}
-
+  let newRequests = [];
+  if (filters.length === 0) {
+    return requests;
+  }
+  if (filters.includes("pending")) {
+    newRequests = newRequests.concat(
+      requests.filter(x => x.status.name === "pending")
+    );
+  }
+  if (filters.includes("accepted")) {
+    newRequests = newRequests.concat(
+      requests.filter(x => x.status.name === "accepted")
+    );
+  }
+  if (filters.includes("rejected")) {
+    newRequests = newRequests.concat(
+      requests.filter(x => x.status.name === "rejected")
+    );
+  }
+  return newRequests;
+};
 
 export default function UserTrip(props) {
   const classes = useStyles();
-	const { handleChange, expanded, trip } = props;
-	const { requestFilters } = props;
+  const { handleChange, expanded, trip } = props;
+  const { requestFilters } = props;
+  const { isExpired } = props;
   const panelName = "panel" + trip.tripID;
   return (
     <div className={classes.root}>
@@ -92,9 +98,18 @@ export default function UserTrip(props) {
           <div>
             <Divider />
             <ExpansionPanelDetails>
-							<Grid container>
-								{filterByStatus(trip.requests, requestFilters).map(request => <Grid xs={12} item><RequestPanel request={request}/></Grid>)}
-							</Grid>
+              <Grid spacing={2} container>
+                {filterByStatus(trip.requests, requestFilters).map(request => (
+                  <Grid
+                    className={classes.root}
+                    xs={6}
+                    key={request.requestID}
+                    item
+                  >
+                    <RequestPanel isExpired={isExpired} request={request} />
+                  </Grid>
+                ))}
+              </Grid>
             </ExpansionPanelDetails>
           </div>
         ) : null}

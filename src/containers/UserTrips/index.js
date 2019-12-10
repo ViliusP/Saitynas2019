@@ -103,6 +103,7 @@ export default function UserTrips() {
           handleChange={panel => handleChange(panel)}
 					expanded={expanded}
 					requestFilters={filters}
+					isExpired = {state}
         />
       ))}
     </div>
