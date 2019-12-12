@@ -4,10 +4,10 @@ import NotFoundPage from "../NotFoundPage/index";
 import LoggedUserLayout from "../LoggedUserLayout/index";
 import SignIn from "../SignIn";
 import Homepage from "../Homepage";
-import UserTrips from '../UserTrips';
+import UserTrips from "../UserTrips";
 import JwtDecode from "jwt-decode";
 import SearchTrips from "../SearchTrips";
-
+import UserRequests from "../UserRequests";
 function isJwtValid() {
   let token = localStorage.getItem("token");
   if (token !== null) {
@@ -51,12 +51,17 @@ export default function App() {
             layout={LoggedUserLayout}
             component={SearchTrips}
           />
-          <Route exact path="/login" component={SignIn} />
           <AppRoute
             exact
             path="/users/:id/trips"
             layout={LoggedUserLayout}
             component={UserTrips}
+          />
+          <AppRoute
+            exact
+            path="/users/:id/requests"
+            layout={LoggedUserLayout}
+            component={UserRequests}
           />
           <AppRoute
             exact
