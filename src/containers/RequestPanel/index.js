@@ -126,6 +126,7 @@ export default function RequestPanel(props) {
         
 				<CardContent>
           <Typography paragraph>{request.info}</Typography>
+					<Typography paragraph>Phone number:{request.request_user.phone_number}</Typography>
 				</CardContent>
         <Divider />
       </Card>

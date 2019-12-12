@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import SearchTripTemplate from "../../components/SearchTripTemplate";
 import { useHistory } from "react-router-dom";
+
+import SearchTripTemplate from "../../components/SearchTripTemplate";
 import ModalContainer from "../../components/ModalContainer";
 import PostRequestForm from "../PostRequestForm";
-
-import ScheduleBo from "@material-ui/icons/Favorite";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import SearchTripHeader from "../../components/SearchTripHeader";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -79,6 +78,7 @@ export default function SearchTrips() {
   };
   return (
     <div>
+			<SearchTripHeader/>
       <FormControlLabel
         control={
           <Checkbox
